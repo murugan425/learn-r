@@ -26,7 +26,8 @@ stats$Internet.users
 filter <- stats$Internet.users < 2
 stats[filter,]
 stats[stats$Birth.rate > 40,]
-stats[stats$Country.Name == "India",]
+stats[stats$Country.Name == c("India"),]
+stats[stats$Country.Name == "China",]
 #combining multiple filter
 stats[stats$Birth.rate > 40 & stats$Internet.users < 2, ]
 
