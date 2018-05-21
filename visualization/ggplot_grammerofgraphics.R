@@ -70,3 +70,42 @@ plot + geom_density(aes(fill=Genre), position = 'stack')
 
 ##################################################
 
+#Approach1: Layer 1 is defined with the data & Aesthetics
+plot <- ggplot(data=movies, aes(x=AudienceRating))
+plot + geom_histogram(binwidth = 10, fill='White', color="blue")
+
+plot <- ggplot(data=movies, aes(x=CriticRating))
+plot + geom_histogram(binwidth = 10, fill='White', color="blue")
+
+#Approach2: Layer 1 is defined with the data & Layer 2 ia having the Aesthetics
+plot <- ggplot(data=movies)
+plot + geom_histogram(binwidth = 10, aes(x=AudienceRating), fill='White', color="blue")
+plot + geom_histogram(binwidth = 10, aes(x=CriticRating), fill='White', color="blue")
+
+#Smoother Charts
+#Statistical Transformations
+plot <- ggplot(data=movies, aes(x=CriticRating, y=AudienceRating, color=Genre))
+plot + geom_point()
+plot + geom_point() + geom_smooth(fill=NA)
+
+plot <- ggplot(data=movies[movies$Genre == 'Romance',], aes(x=CriticRating, y=AudienceRating, color=Genre))
+plot + geom_point() + geom_smooth(fill=NA)
+nrow(movies[movies$Genre == 'Romance',])
+
+plotByGenre <- function(movieGenre) {
+  nrow(movies[movies$Genre == movieGenre,])
+  plot <- ggplot(data=movies[movies$Genre == movieGenre,], aes(x=CriticRating, y=AudienceRating, color=Genre))
+  plot + geom_point() + geom_smooth(fill=NA)
+}
+
+plotByGenre("Romance")
+plotByGenre("Action")
+
+#Boxplot Charts
+plot <- ggplot(data=movies, aes(x=Genre, y=AudienceRating, color=Genre))
+plot + geom_boxplot()
+plot + geom_boxplot(size=0.5) + geom_jitter()
+plot + geom_jitter() + geom_boxplot(size=1, alpha=0.5) 
+
+plot <- ggplot(data=movies, aes(x=Genre, y=CriticRating, color=Genre))
+plot + geom_jitter() + geom_boxplot(size=1, alpha=0.5) 
