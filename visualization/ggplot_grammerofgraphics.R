@@ -15,7 +15,7 @@ movies$Year <- factor(movies$Year)
 str(movies)
 
 ##################################################
-#AESTHETICS
+#=========================AESTHETICS
 #1: Headstart to ggplot by providing data and deciding the Aesthetics
 ggplot(data=movies, aes(x=CriticRating, y=AudienceRating))
 
@@ -25,7 +25,7 @@ ggplot(data=movies, aes(x=CriticRating, y=AudienceRating,
   geom_point()
 
 ##################################################
-#GEOMETRY
+#=========================GEOMETRY
 #3: Adding multiple geometry layers
 plot <- ggplot(data=movies, aes(x=CriticRating, y=AudienceRating, 
                                 color=Genre, size=Budget))
@@ -83,7 +83,7 @@ plot + geom_histogram(binwidth = 10, aes(x=AudienceRating), fill='White', color=
 plot + geom_histogram(binwidth = 10, aes(x=CriticRating), fill='White', color="blue")
 
 #Smoother Charts
-#Statistical Transformations
+#=========================STATISTICS
 plot <- ggplot(data=movies, aes(x=CriticRating, y=AudienceRating, color=Genre))
 plot + geom_point()
 plot + geom_point() + geom_smooth(fill=NA)
@@ -110,7 +110,7 @@ plot + geom_jitter() + geom_boxplot(size=1, alpha=0.5)
 plot <- ggplot(data=movies, aes(x=Genre, y=CriticRating, color=Genre))
 plot + geom_jitter() + geom_boxplot(size=1, alpha=0.5)
 
-#Facets
+#=========================FACETS
 plot <- ggplot(data=movies, aes(x=Budget))
 plot + geom_histogram(binwidth = 10, aes(fill=Genre), color="black")
 
@@ -130,7 +130,7 @@ scatter_plot + facet_grid(Genre~Year, scales = 'free')
 
 scatter_plot + geom_smooth(fill=NA) + facet_grid(Genre~Year, scales = 'free')
 
-#Co-ordinates
+#=========================COORDINATES
 plot <- ggplot(data=movies, aes(x=CriticRating, y=AudienceRating, size=Budget, color=Genre))
 plot + geom_point()
 plot + geom_point() + xlim(50,100) + ylim(50,100) 
@@ -145,4 +145,41 @@ scatter_plot + geom_smooth(fill=NA) +
   facet_grid(Genre~Year, scales = 'free') +
   coord_cartesian(ylim=c(0,100))
 
-
+#=========================THEME
+plot <- ggplot(data=movies, aes(x=Budget))
+histchart <- plot + geom_histogram(binwidth = 8, aes(fill=Genre), color='black')
+#labelling the axis
+histchart + xlab("Budget in Millions") + ylab("Number of Movies")
+#label formatting
+histchart + xlab("Budget in Millions") + ylab("Number of Movies") +
+          theme(axis.title.x = element_text(colour = "DarkBlue", size = 15),
+          axis.title.y = element_text(colour = "Red", size = 15))
+#axis coordinates size
+histchart + xlab("Budget in Millions") + ylab("Number of Movies") +
+  theme(axis.title.x = element_text(colour = "DarkBlue", size = 10),
+        axis.title.y = element_text(colour = "Red", size = 10),
+        axis.text.x = element_text(size=10),
+        axis.text.y = element_text(size=10))
+#legend formatting
+histchart + xlab("Budget in Millions") + ylab("Number of Movies") +
+  theme(axis.title.x = element_text(colour = "DarkBlue", size = 10),
+        axis.title.y = element_text(colour = "Red", size = 10),
+        axis.text.x = element_text(size=10),
+        axis.text.y = element_text(size=10),
+        legend.title = element_text(size=10),
+        legend.text = element_text(size=8),
+        legend.position = c(1,1), #posistion the legent in top right (bottom,left=0,0, top,right=1,1)
+        legend.justification = c(1,1))
+#chart title
+histchart + xlab("Budget in Millions") + ylab("Number of Movies") +
+  ggtitle("Movie Budget Analysis") +
+  theme(axis.title.x = element_text(colour = "DarkBlue", size = 10),
+        axis.title.y = element_text(colour = "Red", size = 10),
+        axis.text.x = element_text(size=10),
+        axis.text.y = element_text(size=10),
+        legend.title = element_text(size=10),
+        legend.text = element_text(size=8),
+        legend.position = c(1,1), #posistion the legent in top right (bottom,left=0,0, top,right=1,1)
+        legend.justification = c(1,1),
+        plot.title = element_text(colour = "DarkBlue", size=15, family = "Arial")
+        )
