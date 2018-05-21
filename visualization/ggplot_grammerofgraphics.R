@@ -130,4 +130,19 @@ scatter_plot + facet_grid(Genre~Year, scales = 'free')
 
 scatter_plot + geom_smooth(fill=NA) + facet_grid(Genre~Year, scales = 'free')
 
-#
+#Co-ordinates
+plot <- ggplot(data=movies, aes(x=CriticRating, y=AudienceRating, size=Budget, color=Genre))
+plot + geom_point()
+plot + geom_point() + xlim(50,100) + ylim(50,100) 
+#xlim & ylim will remove the data which is outside the coordinates, 
+#so this may not work out in case of histograms where we may need to zoom without filtering the data
+plot <- ggplot(data=movies, aes(x=Budget))
+histchart <- plot + geom_histogram(binwidth = 8, aes(fill=Genre), color='black')
+histchart + xlim(0,50) + ylim(0,50) #wrong - result is not as expected.
+histchart + coord_cartesian(xlim= c(0,50), ylim=c(0,50))
+
+scatter_plot + geom_smooth(fill=NA) + 
+  facet_grid(Genre~Year, scales = 'free') +
+  coord_cartesian(ylim=c(0,100))
+
+
