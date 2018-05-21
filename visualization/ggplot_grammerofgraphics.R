@@ -108,4 +108,26 @@ plot + geom_boxplot(size=0.5) + geom_jitter()
 plot + geom_jitter() + geom_boxplot(size=1, alpha=0.5) 
 
 plot <- ggplot(data=movies, aes(x=Genre, y=CriticRating, color=Genre))
-plot + geom_jitter() + geom_boxplot(size=1, alpha=0.5) 
+plot + geom_jitter() + geom_boxplot(size=1, alpha=0.5)
+
+#Facets
+plot <- ggplot(data=movies, aes(x=Budget))
+plot + geom_histogram(binwidth = 10, aes(fill=Genre), color="black")
+
+histchart <- plot + geom_histogram(binwidth = 10, aes(fill=Genre), color="black")
+histchart
+
+histchart + facet_grid(Genre~.)
+histchart + facet_grid(Genre~., scales = 'free')
+
+plot <- ggplot(data=movies, aes(x=CriticRating, y=AudienceRating, color=Genre))
+scatter_plot <- plot + geom_point(size=2)
+scatter_plot <- plot + geom_point(aes(size=Budget))
+
+scatter_plot + facet_grid(Genre~.)
+scatter_plot + facet_grid(.~Year)
+scatter_plot + facet_grid(Genre~Year, scales = 'free')
+
+scatter_plot + geom_smooth(fill=NA) + facet_grid(Genre~Year, scales = 'free')
+
+#
